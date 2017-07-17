@@ -6,17 +6,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.websocket.OnClose;
+import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 @ServerEndpoint("/testWsSocket/{client-id}")
-public class CinemaEventSocketMediator {
+public class WSSocketMediator {
 
 	private static Set<Session> peers = Collections.synchronizedSet(new HashSet());
 	
@@ -37,7 +37,7 @@ public class CinemaEventSocketMediator {
 	public void onOpen(Session session, @PathParam("client-id") String clientId) {
 		System.out.println("mediator: opened websocket channel for client " + clientId);
 		peers.add(session);
-
+		System.out.println("peers size - " + peers.size());
 		try {
 			session.getBasicRemote().sendText("good to be in touch");
 		} catch (IOException e) {
@@ -49,5 +49,8 @@ public class CinemaEventSocketMediator {
 		System.out.println("mediator: closed websocket channel for client " + clientId);
 		peers.remove(session);
 	}
+	
+	@OnError
+	public void onError(Session session, Throwable thr) {}
 
 }

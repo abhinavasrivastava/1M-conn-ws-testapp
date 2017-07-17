@@ -15,8 +15,8 @@ import javax.websocket.WebSocketContainer;
 // based on http://stackoverflow.com/questions/26452903/javax-websocket-client-simple-example
 
 @ClientEndpoint
-public class MovieEventSocketClient {
-	public MovieEventSocketClient(URI endpointURI) {
+public class WebSocketClient {
+	public WebSocketClient(URI endpointURI) {
 		try {
 			WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 			container.connectToServer(this, endpointURI);

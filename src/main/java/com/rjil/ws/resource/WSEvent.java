@@ -15,20 +15,20 @@ import javax.ws.rs.core.Request;
 
 //invoke at : http://localhost:7101/CinemaMonitor/resources/cinemaevent
 
-@Path("/cinemaevent")
-public class MovieEvent {
+@Path("/wsevent")
+public class WSEvent {
 
-	private MovieEventSocketClient client;
+	private WebSocketClient client;
 
 	private final String webSocketAddress = "ws://localhost:3001/testWsSocket";
 
-	public MovieEvent() {
+	public WSEvent() {
 	}
 
 	private void initializeWebSocket() throws URISyntaxException {
 		//ws://localhost:7101/CinemaMonitor/cinemaSocket/
 		System.out.println("REST service: open websocket client at " + webSocketAddress);
-		client = new MovieEventSocketClient(new URI(webSocketAddress + "/0"));
+		client = new WebSocketClient(new URI(webSocketAddress + "/0"));
 	}
 
 	private void sendMessageOverSocket(String message) {
